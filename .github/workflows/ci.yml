@@ -20,6 +20,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
+          platform: $${{ matrix.target }}
       - name: Build with Gradle
         run: ./gradlew --no-daemon build
       - name: Compress archive
