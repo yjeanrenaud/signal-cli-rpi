@@ -57,7 +57,7 @@ jobs:
           done
           tree .
 
-      - name: Compress native app
+      - name: Compress aarch64 app
         env:
           SIGNAL_CLI_VER: ${{ steps.cli_ver.outputs.signal_cli_version }}
         run: |
