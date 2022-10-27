@@ -9,7 +9,7 @@ on:
 jobs:
 
   ci_wf:
-    uses: AsamK/signal-cli/.github/workflows/ci.yml@master
+    uses: yjeanrenaud/signal-cli-rpi/.github/workflows/ci.yml@master
     # ${{ github.repository }} not accepted here
 
 
