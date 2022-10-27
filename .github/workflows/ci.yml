@@ -37,12 +37,12 @@ jobs:
         with:
           version: 'latest'
           java-version: '17'
-          components: 'native-image'
+          components: 'aarch64-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build with Gradle
-        run: ./gradlew --no-daemon nativeCompile
+        run: ./gradlew --no-daemon aarch64compile
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: signal-cli-native
-          path: build/native/nativeCompile/signal-cli
+          name: signal-cli-aarch64
+          path: build/aarch64/aarch64Compile/signal-cli
