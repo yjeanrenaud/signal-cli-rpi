@@ -1,5 +1,5 @@
 name: repackage-native-libs
-
+#tr
 on:
   push:
     tags:
@@ -9,7 +9,7 @@ on:
 jobs:
 
   ci_wf:
-    uses: AsamK/signal-cli/.github/workflows/ci.yml@master
+    uses: yjeanrenaud/signal-cli-rpi/.github/workflows/ci.yml@master
     # ${{ github.repository }} not accepted here
 
 
@@ -57,11 +57,11 @@ jobs:
           done
           tree .
 
-      - name: Compress native app
+      - name: Compress aarch64 app
         env:
           SIGNAL_CLI_VER: ${{ steps.cli_ver.outputs.signal_cli_version }}
         run: |
-          tar -czf signal-cli-${SIGNAL_CLI_VER}-Linux-native.tar.gz -C signal-cli-native signal-cli
+          tar -czf signal-cli-${SIGNAL_CLI_VER}-Linux-aarch64.tar.gz -C signal-cli-aarch64 signal-cli
 
       - name: Replace Windows lib
         env:
@@ -108,8 +108,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: signal-cli-${{ steps.cli_ver.outputs.signal_cli_version }}-Linux-native.tar.gz
-          asset_name: signal-cli-${{ steps.cli_ver.outputs.signal_cli_version }}-Linux-native.tar.gz
+          asset_path: signal-cli-${{ steps.cli_ver.outputs.signal_cli_version }}-Linux-aarch64.tar.gz
+          asset_name: signal-cli-${{ steps.cli_ver.outputs.signal_cli_version }}-Linux-aarch64.tar.gz
           asset_content_type: application/x-compressed-tar  # .tar.gz
 
       - name: Upload windows archive
