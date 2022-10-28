@@ -9,9 +9,6 @@ jobs:
     strategy:
       matrix:
         java: [ '17', '19' ]
-        target: 'aarch64-unknown-linux-gnu'
-        linker: 'aarch64-linux-gnu-gcc'
-        req-pkg: 'gcc-aarch64-linux-gnu'
 
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +17,8 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
-          platform: $${{ matrix.target }}
+          architecture: 'aarch64'
+          cache: 'gradle'
       - name: Build with Gradle
         run: ./gradlew --no-daemon build
       - name: Compress archive
