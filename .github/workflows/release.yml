@@ -63,7 +63,13 @@ jobs:
             curl -sOL "${RELEASES_URL}/v${SIGNAL_CLIENT_VER}/${file_name}"  # note: added v
           done
           tree .
-
+      
+      - name: Compress aarch64 app
+        env:
+          SIGNAL_CLI_VER: ${{ steps.cli_ver.outputs.signal_cli_version }}
+        run: |
+          tar -czf signal-cli-${SIGNAL_CLI_VER}-Linux-aarch64.tar.gz -C signal-cli-aarch64 signal-cli
+          
       - name: Compress native app
         env:
           SIGNAL_CLI_VER: ${{ steps.cli_ver.outputs.version }}
@@ -119,6 +125,16 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: signal-cli-${{ steps.cli_ver.outputs.version }}-Linux-native.tar.gz
           asset_name: signal-cli-${{ steps.cli_ver.outputs.version }}-Linux-native.tar.gz
+          asset_content_type: application/x-compressed-tar  # .tar.gz
+          
+      - name: Upload Linux aarch64 archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: signal-cli-${{ steps.cli_ver.outputs.version }}-Linux-aarch64.tar.gz
+          asset_name: signal-cli-${{ steps.cli_ver.outputs.version }}-Linux-aarch64.tar.gz
           asset_content_type: application/x-compressed-tar  # .tar.gz
 
       - name: Upload windows archive
