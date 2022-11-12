@@ -23,6 +23,7 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
           cache: 'gradle'
+          architecture: 'aarch64'
       - name: Build with Gradle
         run: ./gradlew --no-daemon build
       - name: Compress archive
